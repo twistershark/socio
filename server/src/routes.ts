@@ -6,6 +6,10 @@ const routes = express.Router();
 
 const donorController = new DonorController();
 
+routes.get('/donors', donorController.show);
+
 routes.post('/donor', donorController.create);
+
+donorController.fetchDonors();
 
 export default routes;
