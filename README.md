@@ -1,6 +1,6 @@
 # Sócio Evangelizador
 <p align="center">
-  ![](uploads/logo.svg)
+  <img alt="logo" src="uploads/logo.svg">
 </p>
 
 <p align="center">
