@@ -5,7 +5,8 @@ export async function up(knex: Knex) {
         table.increments('id').primary();
         table.string('name').notNullable();
         table.string('email').notNullable();
-        table.string('phone').notNullable();
+        table.string('phoneNumber').notNullable();
+        table.string('phoneDDD', 2).notNullable();
         table.string('document').notNullable();
         table.string('postalCode').notNullable();
         table.string('street').notNullable();
@@ -13,7 +14,7 @@ export async function up(knex: Knex) {
         table.string('district').notNullable();
         table.string('complement');
         table.string('city').notNullable();
-        table.string('state').notNullable();
+        table.string('state', 2).notNullable();
         table.string('value').notNullable();
         table.string('dueDate').notNullable();
     });

@@ -15,43 +15,57 @@ class DonorController {
     }
 
     async fetchDonors(){
+
+        const configAxiosHeader = { 
+            headers: { 
+                "Content-type": "application/json;charset=ISO-8859-1", 
+                "Accept": "application/json;charset=ISO-8859-1" 
+            } 
+        }
+
         const date_ob = new Date();
+
         const day = String(date_ob.getDate());
-        var month = String(date_ob.getMonth());
+
+        var month = String(date_ob.getMonth() + 1);
         if(month.length < 2) month = "0" + month;
 
         const year = String(date_ob.getFullYear());
-        const due = year + "-" + month + "-" + String(Number(day) + 3);
+
+        const due = year + "-" + month + "-" + String(Number(day) + 7);
 
         const donors = knex('donors').where('dueDate', day).select('*');
         (await donors).map(donor => {
             const data = {
+                reference: "Sócio Evangelizador - Mel de Deus",
                 firstDueDate: due,
-                numberOfPayments: 1,
-                periodicity: 'monthly',
+                numberOfPayments: "1",
+                periodicity: "monthly",
                 amount: donor.value,
-                instructions: 'Pagar o boleto em qualquer casa lotérica ou banco.',
-                description: 'Doação para a Obra de Evangelização',
+                instructions: "Boleto de doação",
+                description: "Sócio Evangelizador - Com. Mel de Deus",
                 customer: {
                     document: {
-                        type: 'CPF',
+                        type: "CPF",
                         value: donor.document
                     },
                     name: donor.name,
+                    email: donor.email,
                     phone: {
-                        areaCode: '11',
-                        number: '000000000'
-                    },
-                    email: donor.email
+                        areaCode: donor.phoneDDD,
+                        number: donor.phoneNumber
+                    }
                 }
             }
 
-            api.post(
-                `https://ws.pagseguro.uol.com.br/recurring-payment/boletos?email=${process.env.EMAIL}&token=${process.env.TOKEN}`)
-            .then(response => {
-                console.log(response.data["boletos"][0].paymentLink);
-            })
-
+             api.post(`https://ws.pagseguro.uol.com.br/recurring-payment/boletos?email=${process.env.EMAIL}&token=${process.env.TOKEN}`, 
+             data,
+             configAxiosHeader
+             ).then(response => {
+                    console.log(response.data);
+                }).catch(reject => {
+                    console.log(reject);
+                })
         });
     }
     
@@ -60,7 +74,8 @@ class DonorController {
         const {
             name,
             email,
-            phone,
+            phoneDDD,
+            phoneNumber,
             document,
             postalCode,
             street,
@@ -78,7 +93,8 @@ class DonorController {
         const donor = {
             name,
             email,
-            phone,
+            phoneDDD,
+            phoneNumber,
             document,
             postalCode,
             street,

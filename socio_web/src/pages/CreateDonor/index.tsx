@@ -8,14 +8,6 @@ import './styles.css';
 import logo from '../../assets/logo.svg';
 import api from '../../services/api';
 
-interface Address {
-    postalCode: string;
-    street: string;
-    district: string;
-    city: string;
-    state: string;
-}
-
 const CreateDonor = () => {
 
     const [ dueDate, setDueDate ] = useState("");
@@ -28,7 +20,8 @@ const CreateDonor = () => {
     const [ formData, setFormData ] = useState({
         name: '',
         email: '',
-        whatsapp: '',
+        phoneDDD: '',
+        phoneNumber: '',
         document: '',
         value: '',
         number: '',
@@ -51,7 +44,7 @@ const CreateDonor = () => {
     }, [postalCode]);
 
     function handlePostalCodeInput(event: ChangeEvent<HTMLInputElement>) {
-        const value = event.target.value;
+        const value = event.target.value.replace(/[^0-9]/g, '');
 
         setPostalCode(value);
     };
@@ -60,6 +53,13 @@ const CreateDonor = () => {
         const { name, value } = event.target;
         
         setFormData({ ...formData, [name]: value });
+    };
+
+
+    function handleNumberChange(event: ChangeEvent<HTMLInputElement>) {
+        const { name, value } = event.target;
+    
+        setFormData({ ...formData, [name]: value.replace(/[^0-9]/g, '') });
     };
 
     function validate(document: string) {
@@ -86,7 +86,7 @@ const CreateDonor = () => {
     }
 
     function handleDocumentChange(event: ChangeEvent<HTMLInputElement>){
-        const value = event.target.value;
+        const value = event.target.value.replace(/[^0-9]/g, '');
 
         if(value.length === 11){
             const correct = validate(value);
@@ -108,7 +108,8 @@ const CreateDonor = () => {
         const {
             name, 
             email, 
-            whatsapp, 
+            phoneDDD,
+            phoneNumber, 
             document, 
             value, 
             number, 
@@ -125,7 +126,8 @@ const CreateDonor = () => {
         const donorData = {
             name: name,
             email: email,
-            phone: whatsapp,
+            phoneDDD: phoneDDD,
+            phoneNumber: phoneNumber,
             document: document,
             postalCode: donorPostalCode,
             street: donorStreet,
@@ -140,7 +142,7 @@ const CreateDonor = () => {
 
         await api.post('donor', donorData);
 
-        alert('Doador criado!');
+        alert('Cadastro Efetuado com Sucesso!');
 
         history.push('/');
     }
@@ -171,7 +173,7 @@ const CreateDonor = () => {
                                 name="value"
                                 id="value"
                                 required
-                                onChange={handleinputChange}
+                                onChange={handleNumberChange}
                             />
                         </div>
 
@@ -222,17 +224,30 @@ const CreateDonor = () => {
                         />
                     </div>
 
-                    <div className="field">
-                        <label htmlFor="phone">Telefone</label>
-                        <input 
-                            type="text"
-                            name="whatsapp"
-                            id="whatsapp"
-                            required
-                            onChange={handleinputChange}
-                        />
-                    </div>
+                    <div className="field-group">
+                        <div className="field">
+                            <label htmlFor="phoneDDD">DDD</label>
+                            <input 
+                                type="text"
+                                name="phoneDDD"
+                                id="phoneDDD"
+                                required
+                                onChange={handleNumberChange}
+                            />
+                        </div>
 
+                        <div className="field">
+                            <label htmlFor="phoneNumber">Telefone</label>
+                            <input 
+                                type="text"
+                                name="phoneNumber"
+                                id="phoneNumber"
+                                required
+                                onChange={handleNumberChange}
+                            />
+                        </div>
+                    </div>
+                    
                     <div className="field">
                         <label htmlFor="document">CPF</label>
                         <input 
