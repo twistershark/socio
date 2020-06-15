@@ -17,11 +17,14 @@
 
   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
 
+## Description:
+
+#### This project helps a donor on signing up in your non-profit donation plan. After they complete the form, they'll start receiving monthly links on their emails to donate their choosen value to your organization. 
+#### This project utilizes ViaCep API to fill out all the address fields after the donor enters his postal code. All payments are generated using PagSeguro's  Boleto API.
 
 ## Screenshots:
 
-#### This project helps a donor on signing up in your non-profit donation plan. After they complete the form, they'll start receiving monthly links on their emails to donate their choosen value to your organization. 
-##### This project utilizes ViaCep API to fill out all the address fields after the donor enters his postal code. All payments are generated using PagSeguro's  Boleto API.
+
   
   <p align="center">
   <img alt="Home" width="500px" src="uploads/home.png">
