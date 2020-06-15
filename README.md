@@ -1,5 +1,8 @@
 # Sócio Evangelizador
-![](uploads/logo.png)
+<p align="center">
+  ![](uploads/logo.svg)
+</p>
+
 <p align="center">
   <strong>An app to help your non-profit organization to receive donations on a monthly basis</strong>
 </p>
@@ -21,13 +24,13 @@
 ##### This project utilizes ViaCep API to fill out all the address fields after the donor enters his postal code. All payments are generated using PagSeguro's  Boleto API.
   
   <p align="center">
-  <img alt="Home" width="500px" src="https://github.com/twistershark/socio/blob/master/uploads/Web/home.png">
+  <img alt="Home" width="500px" src="uploads/home.png">
   </p>
   <p align="center">
-  <img alt="Register1" height="500px" src="https://github.com/twistershark/socio/blob/master/uploads/Web/form1.png">
+  <img alt="Register1" height="500px" src="uploads/form1.png">
   </p>
   <p align="center">
-  <img alt="Register2" height="500px" src="https://github.com/twistershark/socio/blob/master/uploads/Web/form2.png">
+  <img alt="Register2" height="500px" src="uploads/form2.png">
   </p>
 
 ## Getting Started
